@@ -8,7 +8,7 @@ Wagmi is a simple, easy to use, and powerful library for building Ethereum dApps
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/ilyxium/eth-nextjs-boilerplate.git
+git clone https://github.com/Shardeum/shardeum-dapp-boilerplate.git
 
 npm install
 
