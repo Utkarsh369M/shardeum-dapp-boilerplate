@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       id: 8081,
       name: "Shardeum Liberty 2.X",
       network: "Shardeum Liberty 2.X",
+      iconUrl: "https://img.api.cryptorank.io/coins/shardeum1665056595732.png",
       nativeCurrency: {
         decimals: 18,
         name: "Shardeum",
@@ -51,10 +52,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
 
   // for Shardeum Spinax 1.X
-  const shardeumSpinax: Chain = {
+  const shardeumSphinx: Chain = {
     id: 8082,
-    name: "Shardeum Spinax 1.X",
-    network: "Shardeum Spinax 1.X",
+    name: "Shardeum Sphinx 1.X",
+    network: "Shardeum Sphinx 1.X",
+    iconUrl: "https://img.api.cryptorank.io/coins/shardeum1665056595732.png",
     nativeCurrency: {
       decimals: 18,
       name: "Shardeum",
@@ -76,7 +78,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 
   const { chains, provider } = configureChains(
-    [shardeumLiberty, shardeumSpinax],
+    [shardeumLiberty, shardeumSphinx],
     [
       alchemyProvider(),
       publicProvider()
