@@ -35,20 +35,4 @@ This boilerplate uses the following open source libraries to bring you a fully f
 - Mobile friendly 📱
 - Examples of buttons and links 📌
 
-## 🔌 Connectors
-
-The boilerplate now uses [rainbowkit](https://www.rainbowkit.com/docs/introduction). They make it super easy to configure the connector, and allows you to choose chains, styling, and more. 
-
-Change your chains and add Shardeum as a Custom Network in app.tsx:
-
-```
-  const { chains, provider } = configureChains(
-    [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-    [
-      alchemyProvider(),
-      publicProvider()
-    ]
-  );
-```
-
-# Enjoy 
+# Enjoy!
