@@ -80,7 +80,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { chains, provider } = configureChains(
     [shardeumLiberty, shardeumSphinx],
     [
-      alchemyProvider(),
       publicProvider()
     ]
   );
