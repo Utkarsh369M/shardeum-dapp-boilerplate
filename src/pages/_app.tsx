@@ -4,7 +4,6 @@ import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 
-
 import { Chain } from 'wagmi/chains';
 
 import {
