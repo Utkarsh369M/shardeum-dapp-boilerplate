@@ -1,19 +1,22 @@
-require("@nomicfoundation/hardhat-toolbox");
-require('dotenv').config()
+//require("@nomicfoundation/hardhat-toolbox");
+//require('dotenv').config()
 require("@nomiclabs/hardhat-etherscan");
+//require("@nomiclabs/hardhat-waffle");
+require('@nomiclabs/hardhat-ethers');
 
 module.exports = {
 
   solidity: "0.8.6",
+  //defaultNetwork: "liberty",
   networks: {
     hardhat: {
       chainId: 1337
     },
-    liberty: {
+    /*liberty: {
       url: "https://liberty20.shardeum.org/",
       accounts: [process.env.MAIN_ACCOUNTS],
       chainId: 8081,
-    },
+    },*/
   },
   settings: {
     optimizer: {

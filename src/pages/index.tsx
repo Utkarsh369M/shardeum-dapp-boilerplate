@@ -1,68 +1,81 @@
-/*import type { NextPage } from 'next'
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
-
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Shardeum DApp Boilerplate</title>
-      </Head>
-
-        <h2 className={styles.title}>
-          gm
-        </h2>
-
-        </div>  )
-}
-
-export default Home
-*/
-
-import { useState } from 'react';
-import { ethers } from 'ethers';
+import { useState } from "react";
+import { ethers } from "ethers";
 import Head from 'next/head';
+import abi from "../contracts/Greeter.json";
 import styles from '../styles/Home.module.css';
-import abi from "../contracts/StringStorage.json";
 
-const Home = () => {
-  const contractAddress = '0x9A0461428cc93Dde2DC6F025D7a2D9ED7fBbCC51'; 
-  const contractAbi = abi.abi;
-  const provider = new ethers.providers.JsonRpcProvider('https://rpc.shardeum.org');
-  const signer = provider.getSigner();
-  const myContract = new ethers.Contract(contractAddress, contractAbi, signer);
+// The contract address
+const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
-  const [inputValue, setInputValue] = useState('');
-  const [updatedValue, setUpdatedValue] = useState('');
 
-  const handleClick = async () => {
-    try {
-      const tx = await myContract.setValue(inputValue);
-      await tx.wait();
-      console.log('Value updated on blockchain:', inputValue);
-    } catch (error) {
-      console.error(error);
+  function Home() {
+  
+  const [inputValue, setInputValue] = useState("");
+  const [updatedValue, setUpdatedValue] = useState("");
+
+  async function requestAccount() {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+  }
+
+  // Fetches the current value store in
+  async function fetchGreeting() {
+    // If MetaMask exists
+    if (typeof window.ethereum !== "undefined") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(
+        greeterAddress,
+        abi.abi,
+        provider
+      );
+      try {
+        const data = await contract.greet();
+        console.log("data: ", data);
+        setUpdatedValue(data);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
     }
-  };
+  }
 
-  const handleGetValueClick = async () => {
-    try {
-      const value = await myContract.getValue();
-      setUpdatedValue(value.toString());
-      console.log('Value fetched from blockchain:', updatedValue);
-    } catch (error) {
-      console.error(error);
+  // Sets the greeting from input text box
+  async function setGreeting() {
+    if (!inputValue) return;
+
+    // If MetaMask exists
+    if (typeof window.ethereum !== "undefined") {
+      await requestAccount();
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const contract = new ethers.Contract(greeterAddress, abi.abi, signer);
+      const transaction = await contract.setGreeting(inputValue);
+
+      setInputValue("");
+      await transaction.wait();
+      fetchGreeting();
     }
-  };
+  }
 
+  // Event handlers
+  function handleClick() {
+    setGreeting();
+  }
+
+  function handleGetValueClick() {
+    fetchGreeting();
+  }
+
+
+  // Return
   return (
     <div className={styles.container}>
       <Head>
         <title>Shardeum DApp Boilerplate</title>
       </Head>
 
-      <h2 className={styles.title}>gm</h2>
+      <h2 className={styles.title}>Gm</h2>
        
       <body className = {styles.classi}>
       <div className={styles.form}>
@@ -92,5 +105,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
