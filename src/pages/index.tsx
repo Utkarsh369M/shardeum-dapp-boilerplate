@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import Head from 'next/head';
-import abi from "../contracts/Greeter.json";
+import abi from "../contracts/ShardeumGreeter.json";
 import styles from '../styles/Home.module.css';
 
 // The contract address
@@ -29,7 +29,7 @@ const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
         provider
       );
       try {
-        const data = await contract.greet();
+        const data = await contract.getMessage();
         console.log("data: ", data);
         setUpdatedValue(data);
       } catch (error) {
@@ -50,7 +50,7 @@ const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
       const signer = provider.getSigner();
 
       const contract = new ethers.Contract(greeterAddress, abi.abi, signer);
-      const transaction = await contract.setGreeting(inputValue);
+      const transaction = await contract.setMessage(inputValue);
 
       setInputValue("");
       await transaction.wait();
@@ -58,14 +58,6 @@ const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
     }
   }
 
-  // Event handlers
-  function handleClick() {
-    setGreeting();
-  }
-
-  function handleGetValueClick() {
-    fetchGreeting();
-  }
 
 
   // Return
@@ -87,13 +79,13 @@ const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
           onChange={(e) => setInputValue(e.target.value)}
         />
 
-        <button className={styles.button} onClick={handleClick}>
+        <button className={styles.button} onClick={setGreeting}>
           Update
         </button>
       
 
       
-        <button className={styles.button} onClick={handleGetValueClick}>
+        <button className={styles.button} onClick={fetchGreeting}>
           Get 
         </button>
 

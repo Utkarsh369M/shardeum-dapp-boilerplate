@@ -1,17 +1,19 @@
-const hre = require("hardhat");
+const { expect } = require("chai");
 
-async function main() {
-    const Greeter = await hre.ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, Hardhat!");
+describe("ShardeumGreeter", function () {
+    it("Should return the new message once it's changed", async function () {
+        const ShardeumGreeter = await ethers.getContractFactory("ShardeumGreeter");
+        const greeter = await ShardeumGreeter.deploy("Hello, Shardeum!");
 
-    await greeter.deployed();
+        await greeter.deployed();
+        expect(await greeter.getMessage()).to.equal("Hello, Shardeum!");
 
-    console.log("Greeter deployed to:", greeter.address);
-}
+        await greeter.setMessage("Updated message");
+        expect(await greeter.getMessage()).to.equal("Updated message");
+    }).timeout(80000);
+});
 
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    });
+
+
+
+

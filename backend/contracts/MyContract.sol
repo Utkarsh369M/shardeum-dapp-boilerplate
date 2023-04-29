@@ -3,20 +3,19 @@ pragma solidity ^0.8.6;
 
 import "hardhat/console.sol";
 
-contract Greeter {
-    string private greeting;
+contract ShardeumGreeter {
+string private message;
+constructor(string memory _message) {
+    console.log("Deploying a ShardeumGreeter with message:", _message);
+    message = _message;
+}
 
-    constructor(string memory _greeting) {
-        console.log("Deploying a Greeter with greeting:", _greeting);
-        greeting = _greeting;
-    }
+function getMessage() public view returns (string memory) {
+    return message;
+}
 
-    function greet() public view returns (string memory) {
-        return greeting;
-    }
-
-    function setGreeting(string memory _greeting) public {
-        console.log("Changing greeting from '%s' to '%s'", greeting, _greeting);
-        greeting = _greeting;
-    }
+function setMessage(string memory _message) public {
+    console.log("Changing message from '%s' to '%s'", message, _message);
+    message = _message;
+}
 }
